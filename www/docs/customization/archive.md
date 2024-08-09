@@ -188,13 +188,9 @@ archives:
     allow_different_binary_count: true
 ```
 
-!!! success "GoReleaser Pro"
+<!-- md:pro -->
 
-    Archive hooks is a [GoReleaser Pro feature](/pro/).
-
-!!! tip
-
-    Learn more about the [name template engine](/customization/templates/).
+<!-- md:templates -->
 
 !!! tip
 

@@ -57,18 +57,22 @@ krews:
     commit_msg_template: "Krew plugin update for {{ .ProjectName }} version {{ .Tag }}"
 
     # Your app's homepage.
+    #
+    # Default: inferred from global metadata.
     homepage: "https://example.com/"
 
     # Your app's description.
     # The usual guideline for this is to wrap the line at 80 chars.
     #
     # Templates: allowed.
+    # Default: inferred from global metadata.
     description: "Software to create fast and easy drum rolls."
 
     # Your app's short description.
     # The usual guideline for this is to be at most 50 chars long.
     #
     # Templates: allowed.
+    # Default: inferred from global metadata.
     short_description: "Software to create fast and easy drum rolls."
 
     # Caveats for the user of your binary.
@@ -82,12 +86,10 @@ krews:
     # in case there is an indicator for prerelease in the tag e.g. v1.0.0-rc1
     skip_upload: true
 
-{% include-markdown "../includes/repository.md" comments=false %}
+{% include-markdown "../includes/repository.md" comments=false start='---\n\n' %}
 ```
 
-!!! tip
-
-    Learn more about the [name template engine](/customization/templates/).
+<!-- md:templates -->
 
 ## Limitations
 
@@ -95,4 +97,4 @@ krews:
 - Binary releases (when `archives.format` is set to `binary`) are not allowed;
 - Only one `GOARM` build is allowed;
 
-{% include-markdown "../includes/prs.md" comments=false %}
+{% include-markdown "../includes/prs.md" comments=false start='---\n\n' %}

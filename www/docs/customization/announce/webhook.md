@@ -42,6 +42,4 @@ announce:
       User-Agent: "goreleaser"
 ```
 
-!!! tip
-
-    Learn more about the [name template engine](/customization/templates/).
+<!-- md:templates -->

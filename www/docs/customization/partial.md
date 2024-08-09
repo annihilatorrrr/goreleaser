@@ -1,10 +1,8 @@
-# Splitting and Merging builds
+# Splitting and Merging the entire process
 
-GoReleaser can also split and merge builds.
+With GoReleaser Pro, you can split and merge `goreleaser release` runs.
 
-!!! success "GoReleaser Pro"
-
-    This subcommand is a [GoReleaser Pro feature](https://goreleaser.com/pro/).
+<!-- md:pro -->
 
 This feature can help in some areas:
 

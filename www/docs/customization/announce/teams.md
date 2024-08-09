@@ -38,6 +38,4 @@ announce:
     icon_url: ""
 ```
 
-!!! tip
-
-    Learn more about the [name template engine](/customization/templates/).
+<!-- md:templates -->

@@ -1,7 +1,7 @@
 # Signing Docker Images and Manifests
 
 Signing Docker Images and Manifests is also possible with GoReleaser.
-This pipe was designed based on the common [sign](/customization/sign/) pipe
+This pipe was designed based on the common [sign](sign.md) pipe
 having [cosign](https://github.com/sigstore/cosign) in mind.
 
 !!! info
@@ -50,6 +50,14 @@ docker_signs:
     ids:
       - foo
       - bar
+
+    # Allows to further filter the artifacts.
+    #
+    # Artifacts that do not match this expression will be ignored.
+    #
+    # Since: v2.2 (pro).
+    # Templates: allowed.
+    if: '{{ eq .Os "linux" }}'
 
     # Stdin data to be given to the signature command as stdin.
     #

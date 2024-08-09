@@ -28,6 +28,4 @@ milestones:
     name_template: "Current Release"
 ```
 
-!!! tip
-
-    Learn more about the [name template engine](/customization/templates/).
+<!-- md:templates -->

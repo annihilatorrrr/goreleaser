@@ -99,14 +99,19 @@ brews:
     caveats: "How to use this binary"
 
     # Your app's homepage.
+    #
+    # Default: inferred from global metadata.
     homepage: "https://example.com/"
 
     # Your app's description.
     #
     # Templates: allowed.
+    # Default: inferred from global metadata.
     description: "Software to create fast and easy drum rolls."
 
     # SPDX identifier of your app's license.
+    #
+    # Default: inferred from global metadata.
     license: "MIT"
 
     # Setting this will prevent goreleaser to actually try to commit the updated
@@ -186,12 +191,10 @@ brews:
     	etc.install "app-config.conf"
       # ...
 
-{% include-markdown "../includes/repository.md" comments=false %}
+{% include-markdown "../includes/repository.md" comments=false start='---\n\n' %}
 ```
 
-!!! tip
-
-    Learn more about the [name template engine](/customization/templates/).
+<!-- md:templates -->
 
 By defining the `brew` section, GoReleaser will take care of publishing the
 Homebrew tap.
@@ -259,9 +262,7 @@ Our suggestion is to create a `my-app-head.rb` file on your tap following
 
 ## Versioned formulas
 
-!!! success "GoReleaser Pro"
-
-    This requires [GoReleaser Pro](/pro/).
+<!-- md:pro -->
 
 GoReleaser can also create a versioned formula.
 For instance, you might want to make keep previous minor versions available to
@@ -295,4 +296,4 @@ You can check the [resource not accessible by integration](https://goreleaser.co
 
 - Only one `GOARM` build is allowed;
 
-{% include-markdown "../includes/prs.md" comments=false %}
+{% include-markdown "../includes/prs.md" comments=false start='---\n\n' %}

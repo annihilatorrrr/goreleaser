@@ -73,9 +73,7 @@ notarize:
         timeout: 20m
 ```
 
-!!! tip
-
-    Learn more about the [name template engine](/customization/templates/).
+<!-- md:templates -->
 
 !!! tip "base64"
 
@@ -88,7 +86,7 @@ notarize:
 
 ## Signing only
 
-> Since v2.1.
+<!-- md:version v2.1 -->
 
 If you want to only sign the binaries, but not notarize them, you can simply
 leave the `notarize` section of your configuration empty.

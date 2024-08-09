@@ -55,14 +55,18 @@ scoops:
     # Your app's homepage.
     #
     # Templates: allowed.
+    # Default: inferred from global metadata.
     homepage: "https://example.com/"
 
     # Your app's description.
     #
     # Templates: allowed.
+    # Default: inferred from global metadata.
     description: "Software to create fast and easy drum rolls."
 
     # Your app's license
+    #
+    # Default: inferred from global metadata.
     license: MIT
 
     # Setting this will prevent goreleaser to actually try to commit the updated
@@ -97,12 +101,10 @@ scoops:
     # Default: 'v1'.
     goamd64: v3
 
-{% include-markdown "../includes/repository.md" comments=false %}
+{% include-markdown "../includes/repository.md" comments=false start='---\n\n' %}
 ```
 
-!!! tip
-
-    Learn more about the [name template engine](/customization/templates/).
+<!-- md:templates -->
 
 By defining the `scoop` section, GoReleaser will take care of publishing the
 Scoop app. Assuming that the project name is `drumroll`, and the current tag is
@@ -139,4 +141,4 @@ You can check the
 [Scoop documentation](https://github.com/lukesampson/scoop/wiki) for more
 details.
 
-{% include-markdown "../includes/prs.md" comments=false %}
+{% include-markdown "../includes/prs.md" comments=false start='---\n\n' %}

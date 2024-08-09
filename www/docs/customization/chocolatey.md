@@ -134,9 +134,7 @@ chocolateys:
     goamd64: v1
 ```
 
-!!! tip
-
-    Learn more about the [name template engine](/customization/templates/).
+<!-- md:templates -->
 
 !!! note
 

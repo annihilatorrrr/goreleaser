@@ -264,13 +264,9 @@ uploads:
     extra_files_only: true
 ```
 
-!!! success "GoReleaser Pro"
-
-    Some options are only available in [GoReleaser Pro feature](/pro/).
+<!-- md:pro -->
 
 These settings should allow you to push your artifacts into multiple HTTP
 servers.
 
-!!! tip
-
-    Learn more about the [name template engine](/customization/templates/).
+<!-- md:templates -->

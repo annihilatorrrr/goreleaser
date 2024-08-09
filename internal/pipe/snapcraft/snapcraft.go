@@ -126,6 +126,15 @@ func (Pipe) Default(ctx *context.Context) error {
 		if snap.Grade == "" {
 			snap.Grade = "stable"
 		}
+		if snap.Confinement == "" {
+			snap.Confinement = "strict"
+		}
+		if snap.Description == "" {
+			return fmt.Errorf("description is required")
+		}
+		if snap.Summary == "" {
+			return fmt.Errorf("summary is required")
+		}
 		if len(snap.ChannelTemplates) == 0 {
 			switch snap.Grade {
 			case "devel":
@@ -180,7 +189,7 @@ func doRun(ctx *context.Context, snap config.Snapcraft) error {
 		return ErrNoSnapcraft
 	}
 
-	g := semerrgroup.New(ctx.Parallelism)
+	g := semerrgroup.NewBlockingFirst(semerrgroup.New(ctx.Parallelism))
 	for platform, binaries := range ctx.Artifacts.Filter(
 		artifact.And(
 			artifact.ByGoos("linux"),

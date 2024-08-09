@@ -834,6 +834,47 @@
 				"additionalProperties": false,
 				"type": "object"
 			},
+			"Cloudsmith": {
+				"properties": {
+					"ids": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"organization": {
+						"type": "string"
+					},
+					"repository": {
+						"type": "string"
+					},
+					"formats": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"secret_name": {
+						"type": "string"
+					},
+					"disable": {
+						"type": "string"
+					},
+					"distributions": {
+						"additionalProperties": {
+							"type": "string"
+						},
+						"type": "object"
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": [
+					"organization",
+					"repository",
+					"distributions"
+				]
+			},
 			"CommitAuthor": {
 				"properties": {
 					"name": {
@@ -1313,7 +1354,10 @@
 					}
 				},
 				"additionalProperties": false,
-				"type": "object"
+				"type": "object",
+				"required": [
+					"account"
+				]
 			},
 			"Git": {
 				"properties": {
@@ -2195,6 +2239,9 @@
 					"archlinux": {
 						"$ref": "#/$defs/NFPMArchLinux"
 					},
+					"ipk": {
+						"$ref": "#/$defs/NFPMIPK"
+					},
 					"templated_contents": {
 						"$ref": "#/$defs/Contents"
 					},
@@ -2224,7 +2271,8 @@
 								"deb",
 								"rpm",
 								"termux.deb",
-								"archlinux"
+								"archlinux",
+								"ipk"
 							]
 						},
 						"type": "array"
@@ -2443,6 +2491,60 @@
 				"additionalProperties": false,
 				"type": "object"
 			},
+			"NFPMIPK": {
+				"properties": {
+					"abi_version": {
+						"type": "string"
+					},
+					"alternatives": {
+						"items": {
+							"$ref": "#/$defs/NFPMIPKAlternative"
+						},
+						"type": "array"
+					},
+					"auto_installed": {
+						"type": "boolean"
+					},
+					"essential": {
+						"type": "boolean"
+					},
+					"predepends": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"tags": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"fields": {
+						"additionalProperties": {
+							"type": "string"
+						},
+						"type": "object"
+					}
+				},
+				"additionalProperties": false,
+				"type": "object"
+			},
+			"NFPMIPKAlternative": {
+				"properties": {
+					"priority": {
+						"type": "integer"
+					},
+					"target": {
+						"type": "string"
+					},
+					"link_name": {
+						"type": "string"
+					}
+				},
+				"additionalProperties": false,
+				"type": "object"
+			},
 			"NFPMOverridables": {
 				"properties": {
 					"file_name_template": {
@@ -2519,6 +2621,9 @@
 					},
 					"archlinux": {
 						"$ref": "#/$defs/NFPMArchLinux"
+					},
+					"ipk": {
+						"$ref": "#/$defs/NFPMIPK"
 					},
 					"templated_contents": {
 						"$ref": "#/$defs/Contents"
@@ -2601,6 +2706,9 @@
 			},
 			"Nightly": {
 				"properties": {
+					"version_template": {
+						"type": "string"
+					},
 					"name_template": {
 						"type": "string"
 					},
@@ -2936,6 +3044,12 @@
 						},
 						"type": "array"
 					},
+					"binary_signs": {
+						"items": {
+							"$ref": "#/$defs/Sign"
+						},
+						"type": "array"
+					},
 					"env_files": {
 						"$ref": "#/$defs/EnvFiles"
 					},
@@ -3036,6 +3150,12 @@
 						},
 						"type": "array"
 					},
+					"cloudsmiths": {
+						"items": {
+							"$ref": "#/$defs/Cloudsmith"
+						},
+						"type": "array"
+					},
 					"dockerhub": {
 						"items": {
 							"$ref": "#/$defs/DockerHub"
@@ -3056,6 +3176,24 @@
 				"properties": {
 					"mod_timestamp": {
 						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"homepage": {
+						"type": "string"
+					},
+					"license": {
+						"type": "string"
+					},
+					"maintainers": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"full_description": {
+						"$ref": "#/$defs/IncludedMarkdown"
 					}
 				},
 				"additionalProperties": false,
@@ -3552,6 +3690,9 @@
 						},
 						"type": "array"
 					},
+					"if": {
+						"type": "string"
+					},
 					"stdin": {
 						"type": "string"
 					},
@@ -3669,7 +3810,12 @@
 						"type": "string"
 					},
 					"grade": {
-						"type": "string"
+						"type": "string",
+						"enum": [
+							"stable",
+							"devel"
+						],
+						"default": "stable"
 					},
 					"channel_templates": {
 						"items": {
@@ -3678,7 +3824,13 @@
 						"type": "array"
 					},
 					"confinement": {
-						"type": "string"
+						"type": "string",
+						"enum": [
+							"strict",
+							"classic",
+							"devmode"
+						],
+						"default": "strict"
 					},
 					"assumes": {
 						"items": {
@@ -3728,7 +3880,11 @@
 					}
 				},
 				"additionalProperties": false,
-				"type": "object"
+				"type": "object",
+				"required": [
+					"summary",
+					"description"
+				]
 			},
 			"SnapcraftAppMetadata": {
 				"properties": {
@@ -3892,6 +4048,9 @@
 			"Snapshot": {
 				"properties": {
 					"name_template": {
+						"type": "string"
+					},
+					"version_template": {
 						"type": "string"
 					}
 				},

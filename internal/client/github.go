@@ -14,7 +14,7 @@ import (
 
 	"github.com/caarlos0/log"
 	"github.com/charmbracelet/x/exp/ordered"
-	"github.com/google/go-github/v62/github"
+	"github.com/google/go-github/v63/github"
 	"github.com/goreleaser/goreleaser/v2/internal/artifact"
 	"github.com/goreleaser/goreleaser/v2/internal/tmpl"
 	"github.com/goreleaser/goreleaser/v2/pkg/config"
@@ -387,7 +387,6 @@ func (c *githubClient) CreateRelease(ctx *context.Context, body string) (string,
 		// PublishRelease will undraft it.
 		Draft:      github.Bool(true),
 		Prerelease: github.Bool(ctx.PreRelease),
-		MakeLatest: github.String("true"),
 	}
 
 	if target := ctx.Config.Release.TargetCommitish; target != "" {
@@ -400,15 +399,12 @@ func (c *githubClient) CreateRelease(ctx *context.Context, body string) (string,
 		}
 	}
 
-	if latest := strings.TrimSpace(ctx.Config.Release.MakeLatest); latest == "false" {
-		data.MakeLatest = github.String(latest)
-	}
-
 	release, err := c.createOrUpdateRelease(ctx, data, body)
 	if err != nil {
 		return "", fmt.Errorf("could not release: %w", err)
 	}
 
+	log.WithField("url", release.GetHTMLURL()).Info("created")
 	return strconv.FormatInt(release.GetID(), 10), nil
 }
 
@@ -424,12 +420,17 @@ func (c *githubClient) PublishRelease(ctx *context.Context, releaseID string) er
 	data := &github.RepositoryRelease{
 		Draft: github.Bool(draft),
 	}
+	if latest := strings.TrimSpace(ctx.Config.Release.MakeLatest); latest != "" {
+		data.MakeLatest = github.String(latest)
+	}
 	if ctx.Config.Release.DiscussionCategoryName != "" {
 		data.DiscussionCategoryName = github.String(ctx.Config.Release.DiscussionCategoryName)
 	}
-	if _, err := c.updateRelease(ctx, releaseIDInt, data); err != nil {
+	release, err := c.updateRelease(ctx, releaseIDInt, data)
+	if err != nil {
 		return fmt.Errorf("could not update existing release: %w", err)
 	}
+	log.WithField("url", release.GetHTMLURL()).Info("published")
 	return nil
 }
 

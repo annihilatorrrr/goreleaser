@@ -1,7 +1,7 @@
-# Nixpkgs
+# Nix User Repositories
 
 After releasing to GitHub, GitLab, or Gitea, GoReleaser can generate and publish
-a _nixpkg_ to a [Nix User Repository][nur].
+a _nix derivation_ to an existing [Nix User Repository][nur].
 
 The `nix` section specifies how the pkgs should be created:
 
@@ -52,14 +52,18 @@ nix:
     # Your app's homepage.
     #
     # Templates: allowed.
+    # Default: inferred from global metadata.
     homepage: "https://example.com/"
 
     # Your app's description.
     #
     # Templates: allowed.
+    # Default: inferred from global metadata.
     description: "Software to create fast and easy drum rolls."
 
     # License name.
+    #
+    # Default: inferred from global metadata.
     license: "mit"
 
     # Setting this will prevent goreleaser to actually try to commit the updated
@@ -105,12 +109,10 @@ nix:
     post_install: |
       installShellCompletion ./completions/*
 
-{% include-markdown "../includes/repository.md" comments=false %}
+{% include-markdown "../includes/repository.md" comments=false start='---\n\n' %}
 ```
 
-!!! tip
-
-    Learn more about the [name template engine](/customization/templates/).
+<!-- md:templates -->
 
 ## Things not supported
 
@@ -133,7 +135,7 @@ cannot use the default action token.
 You must use a separate token with content write privileges for the tap
 repository.
 You can check the
-[resource not accessible by integration](/errors/resource-not-accessible-by-integration/)
+[resource not accessible by integration](../errors/resource-not-accessible-by-integration.md)
 for more information.
 
 ## Setting up a NUR
@@ -154,4 +156,4 @@ That's it!
 
 [nur]: https://github.com/nix-community/NUR
 
-{% include-markdown "../includes/prs.md" comments=false %}
+{% include-markdown "../includes/prs.md" comments=false start='---\n\n' %}
