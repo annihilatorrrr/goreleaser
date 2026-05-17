@@ -174,7 +174,8 @@ func TestMakeArgs(t *testing.T) {
 		require.Empty(t, da.dockerfile)
 	})
 	t.Run("simple", func(t *testing.T) {
-		ctx := testctx.WrapWithCfg(t.Context(),
+		ctx := testctx.WrapWithCfg(
+			t.Context(),
 			config.Project{
 				ProjectName: "dockerv2",
 			},
